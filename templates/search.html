@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Search Results</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Logout</a>
+      <a href="welcome">Search Page</a>
+    </nav>
+    <p>Here are your results:</p>
+    <ul>
+      {% for book in results %}
+        <a href={{book.bookid}}>
+          <li>{{book.title}} by {{book.author}} ({{book.year}}; ISBN={{book.isbn}}) </li>
+        </a>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

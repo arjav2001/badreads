@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>A Book</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Logout</a>
+      <a href="welcome">Search Page</a>
+    </nav>
+    <p>Title: {{book_info.title}}</p>
+    <p>Author: {{book_info.author}}</p>
+    <p>Published In: {{book_info.year}}</p>
+    <p>ISBN: {{book_info.isbn}}</p>
+    {% if already_rated %}
+      <p>You've already reviewed this book. Would you like to make an edit?</p>
+
+    {% else %}
+      {% if error %}
+        <p>You've either left a field empty or you aren't logged in.</p>
+      {% endif %}
+      <p>Would you like to review this book?</p>
+      <form id="review_make" action="{{ url_for('new_review') }}" method="post">
+        <textarea name="new_review" rows="8" cols="80" form="review_make">Write review here...</textarea>
+        <select type="range" name="new_rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button type="submit">Submit</button>
+      </form>
+    {% endif %}
+
+    {% if num_of_rating==0 %}
+      <p>There are no ratings yet!</p>
+    {% else %}
+      <p>This book has {{num_of_rating}} review(s) and has a general rating of {{average_rating}}!</p>
+      <p>Here are the reviews:</p>
+      <ul>
+        {% for review in reviews %}
+          <li><p>{{review.name}} gave this book {{review.rating}} star(s):</p></li>
+          <p>{{review.review}}</p>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </body>
+</html>
